@@ -2,7 +2,7 @@ package ua.dp.mign;
 
 public class App {
     Client client;
-    ConsoleEventLogger eventLogger;
+    EventLogger eventLogger;
 
     private void logEvent(String message) {
         String formatted = message.replaceAll(client.getId(), client.getFullName());
