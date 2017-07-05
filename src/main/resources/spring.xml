@@ -13,6 +13,17 @@
     <bean id="app" class="ua.dp.mign.App">
         <constructor-arg name="client" ref="client"/>
         <constructor-arg name="eventLogger" ref="eventLogger"/>
+
+        <lookup-method name="getEvent" bean="event"/>
+    </bean>
+
+    <bean id="event" class="ua.dp.mign.model.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+        </constructor-arg>
     </bean>
 
 </beans>

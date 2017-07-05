@@ -3,9 +3,10 @@ package ua.dp.mign;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.dp.mign.model.Client;
+import ua.dp.mign.model.Event;
 import ua.dp.mign.service.EventLogger;
 
-public class App {
+public abstract class App {
     private final Client client;
     private final EventLogger eventLogger;
 
@@ -14,14 +15,23 @@ public class App {
         this.eventLogger = eventLogger;
     }
 
-    private void logEvent(String message) {
-        String formatted = message.replaceAll(client.getId(), client.getFullName());
-        eventLogger.logEvent(formatted);
-    }
+    public abstract Event getEvent();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         App app = context.getBean(App.class);
-        app.logEvent("Some event for user 1");
+
+        for (int i = 0; i < 10; ++i) {
+            Event event = app.getEvent();
+            event.setMessage("Some event for user " + i);
+            app.logEvent(event);
+            Thread.sleep(1000);
+        }
+    }
+
+    private void logEvent(Event event) {
+        String formatted = event.getMessage().replaceAll(client.getId(), client.getFullName());
+        event.setMessage(formatted);
+        eventLogger.logEvent(event);
     }
 }
