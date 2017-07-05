@@ -2,8 +2,8 @@ package ua.dp.mign;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.Calendar;
+import ua.dp.mign.model.Client;
+import ua.dp.mign.service.EventLogger;
 
 public class App {
     private final Client client;

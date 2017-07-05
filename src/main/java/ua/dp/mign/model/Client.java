@@ -1,4 +1,4 @@
-package ua.dp.mign;
+package ua.dp.mign.model;
 
 public class Client {
     private String id;
