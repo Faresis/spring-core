@@ -1,6 +1,6 @@
 package ua.dp.mign;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.dp.mign.model.Client;
 import ua.dp.mign.model.Event;
@@ -18,7 +18,7 @@ public abstract class App {
     public abstract Event getEvent();
 
     public static void main(String[] args) throws InterruptedException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         App app = context.getBean(App.class);
 
         for (int i = 0; i < 10; ++i) {
@@ -27,6 +27,8 @@ public abstract class App {
             app.logEvent(event);
             Thread.sleep(1000);
         }
+
+        context.close();
     }
 
     private void logEvent(Event event) {
