@@ -9,7 +9,7 @@
     </bean>
 
     <bean id="consoleLogger" class="ua.dp.mign.service.ConsoleEventLogger"/>
-    <bean id="fileLogger" class="ua.dp.mign.service.FileEventLogger">
+    <bean id="fileLogger" class="ua.dp.mign.service.FileEventLogger" init-method="init">
         <constructor-arg value="app.log"/>
     </bean>
 

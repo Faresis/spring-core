@@ -13,6 +13,12 @@ public class FileEventLogger implements EventLogger {
         this.file = new File(fileName);
     }
 
+    public void init() throws IOException {
+        if(!file.canWrite()) {
+            throw new IllegalArgumentException("File is not available for write. " + file.getName());
+        }
+    }
+
     public void logEvent(Event event) {
         try {
 
