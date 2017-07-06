@@ -8,8 +8,12 @@
         <constructor-arg name="fullName" value="John Smith"/>
     </bean>
 
-    <bean id="eventLogger" class="ua.dp.mign.service.ConsoleEventLogger"/>
+    <bean id="consoleLogger" class="ua.dp.mign.service.ConsoleEventLogger"/>
+    <bean id="fileLogger" class="ua.dp.mign.service.FileEventLogger">
+        <constructor-arg value="app.log"/>
+    </bean>
 
+    <alias alias="eventLogger" name="fileLogger"/>
     <bean id="app" class="ua.dp.mign.App">
         <constructor-arg name="client" ref="client"/>
         <constructor-arg name="eventLogger" ref="eventLogger"/>
