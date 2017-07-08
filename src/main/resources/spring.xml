@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="client" class="ua.dp.mign.model.Client">
-        <constructor-arg name="id" value="1"/>
-        <constructor-arg name="fullName" value="John Smith"/>
+        <constructor-arg name="id" value="${id}"/>
+        <constructor-arg name="fullName" value="${name}"/>
 
-        <property name="greeting" value="Hello, "/>
+        <property name="greeting" value="${greeting}"/>
     </bean>
 
     <bean id="consoleLogger" class="ua.dp.mign.service.ConsoleEventLogger"/>
@@ -48,6 +48,20 @@
         <constructor-arg>
             <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
         </constructor-arg>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:client.properties</value>
+            </list>
+        </property>
+
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="systemPropertiesMode">
+            <util:constant
+                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        </property>
     </bean>
 
 </beans>
