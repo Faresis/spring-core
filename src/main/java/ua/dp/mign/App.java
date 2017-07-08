@@ -32,7 +32,7 @@ public abstract class App {
     }
 
     private void logEvent(Event event) {
-        String formatted = event.getMessage().replaceAll(client.getId(), client.getFullName());
+        String formatted = client.getGreeting() + event.getMessage().replaceAll(client.getId(), client.getFullName());
         event.setMessage(formatted);
         eventLogger.logEvent(event);
     }

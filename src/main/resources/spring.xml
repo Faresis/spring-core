@@ -6,6 +6,8 @@
     <bean id="client" class="ua.dp.mign.model.Client">
         <constructor-arg name="id" value="1"/>
         <constructor-arg name="fullName" value="John Smith"/>
+
+        <property name="greeting" value="Hello, "/>
     </bean>
 
     <bean id="consoleLogger" class="ua.dp.mign.service.ConsoleEventLogger"/>
