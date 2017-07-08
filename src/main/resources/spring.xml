@@ -4,8 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="client" class="ua.dp.mign.model.Client">
-        <constructor-arg name="id" value="${id}"/>
-        <constructor-arg name="fullName" value="${name}"/>
+        <constructor-arg value="${id}"/>
+        <constructor-arg value="${name}"/>
 
         <property name="greeting" value="${greeting}"/>
     </bean>
@@ -27,16 +27,16 @@
         </constructor-arg>
     </bean>
 
+    <util:map id="typedLoggersMap">
+        <entry key="INFO" value-ref="consoleLogger"/>
+        <entry key="ERROR" value-ref="combinedLogger"/>
+    </util:map>
+
     <alias alias="defaultEventLogger" name="bufferedFileLogger"/>
     <bean id="app" class="ua.dp.mign.App">
-        <constructor-arg name="client" ref="client"/>
-        <constructor-arg name="defaultEventLogger" ref="defaultEventLogger"/>
-        <constructor-arg>
-            <map>
-                <entry key="INFO" value-ref="consoleLogger"/>
-                <entry key="ERROR" value-ref="combinedLogger"/>
-            </map>
-        </constructor-arg>
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="defaultEventLogger"/>
+        <constructor-arg ref="typedLoggersMap"/>
 
         <lookup-method name="getEvent" bean="event"/>
     </bean>
