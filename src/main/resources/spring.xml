@@ -18,11 +18,25 @@
         <constructor-arg value="3"/>
         <constructor-arg ref="fileLogger"/>
     </bean>
+    <bean id="combinedLogger" class="ua.dp.mign.service.CombinedEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="consoleLogger"/>
+                <ref bean="fileLogger"/>
+            </list>
+        </constructor-arg>
+    </bean>
 
-    <alias alias="eventLogger" name="bufferedFileLogger"/>
+    <alias alias="defaultEventLogger" name="bufferedFileLogger"/>
     <bean id="app" class="ua.dp.mign.App">
         <constructor-arg name="client" ref="client"/>
-        <constructor-arg name="eventLogger" ref="eventLogger"/>
+        <constructor-arg name="defaultEventLogger" ref="defaultEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="consoleLogger"/>
+                <entry key="ERROR" value-ref="combinedLogger"/>
+            </map>
+        </constructor-arg>
 
         <lookup-method name="getEvent" bean="event"/>
     </bean>
