@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <spring.ver>3.2.13.RELEASE</spring.ver>
+        <spring.ver>4.3.9.RELEASE</spring.ver>
     </properties>
 
     <dependencies>

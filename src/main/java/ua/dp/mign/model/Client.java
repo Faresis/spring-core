@@ -1,14 +1,18 @@
 package ua.dp.mign.model;
 
-public final class Client {
-    private final String id;
-    private final String fullName;
-    private String greeting;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-    public Client(String id, String fullName) {
-        this.id = id;
-        this.fullName = fullName;
-    }
+@Component("client")
+public final class Client {
+    @Value("${id}")
+    private String id;
+
+    @Value("${name}")
+    private String fullName;
+
+    @Value("${greeting}")
+    private String greeting;
 
     public String getId() {
         return id;
@@ -20,9 +24,5 @@ public final class Client {
 
     public String getGreeting() {
         return greeting;
-    }
-
-    public void setGreeting(String greeting) {
-        this.greeting = greeting;
     }
 }

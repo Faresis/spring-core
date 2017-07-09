@@ -1,18 +1,27 @@
 package ua.dp.mign.model;
 
 import com.google.common.base.MoreObjects;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.util.Date;
 
+@Component("event")
+@Scope("prototype")
 public class Event {
+
     private final long id;
     private String message;
     private final Date date;
     private final DateFormat dateFormat;
 
-    public Event(Date date, DateFormat dateFormat) {
-        this.id = System.nanoTime();
+    public Event(@Value("#{T(System).nanoTime()}") long id,
+                 @Value("#{new java.util.Date()}") Date date,
+                 @Value("#{T(java.text.DateFormat).getDateTimeInstance()}") DateFormat dateFormat) {
+
+        this.id = id;
         this.date = date;
         this.dateFormat = dateFormat;
     }
