@@ -48,7 +48,7 @@ public abstract class App {
         context.close();
     }
 
-    private void logEvent(EventType eventType, Event event) {
+    public void logEvent(EventType eventType, Event event) {
         String formatted = client.getGreeting() + event.getMessage().replaceAll(client.getId(), client.getFullName());
         event.setMessage(formatted);
 

@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import ua.dp.mign.model.EventType;
@@ -18,6 +19,7 @@ import java.util.Map;
 @Configuration
 @ComponentScan("ua.dp.mign")
 @PropertySource(value = "classpath:client.properties")
+@EnableAspectJAutoProxy
 public class AppConfig {
 
     @Autowired
