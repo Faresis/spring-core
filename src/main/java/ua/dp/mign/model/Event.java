@@ -17,6 +17,10 @@ public class Event {
         this.dateFormat = dateFormat;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getMessage() {
         return message;
     }

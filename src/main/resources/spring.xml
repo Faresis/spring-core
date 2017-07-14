@@ -3,6 +3,17 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
     <bean id="client" class="ua.dp.mign.model.Client">
         <constructor-arg value="${id}"/>
         <constructor-arg value="${name}"/>
@@ -23,8 +34,12 @@
             <list>
                 <ref bean="consoleLogger"/>
                 <ref bean="fileLogger"/>
+                <ref bean="dbLogger"/>
             </list>
         </constructor-arg>
+    </bean>
+    <bean id="dbLogger" class="ua.dp.mign.service.DBEventLogger" init-method="init">
+        <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
     <util:map id="typedLoggersMap">
@@ -54,6 +69,7 @@
         <property name="locations">
             <list>
                 <value>classpath:client.properties</value>
+                <value>classpath:db.properties</value>
             </list>
         </property>
 
